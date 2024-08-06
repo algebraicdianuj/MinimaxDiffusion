@@ -226,12 +226,12 @@ def main(args):
     train_steps = 0
     log_steps = 0
     running_loss, running_loss_pos, running_loss_neg = 0, 0, 0
-    start_time = time()
+
     real_memory = defaultdict(list)
     pseudo_memory = defaultdict(list)
 
     logger.info(f"Training for {args.epochs} epochs...")
-    starting_time = time()
+    starting_time = time.time()
     for epoch in range(args.epochs):
         sampler.set_epoch(epoch)
         logger.info(f"Beginning epoch {epoch}...")
@@ -314,7 +314,7 @@ def main(args):
                 running_loss_pos = 0
                 running_loss_neg = 0
                 log_steps = 0
-                start_time = time()
+           
 
             # Save DiT checkpoint:
             if train_steps % args.ckpt_every == 0 and train_steps > 0:
