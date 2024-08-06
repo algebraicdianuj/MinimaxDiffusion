@@ -296,8 +296,7 @@ def main(args):
             if train_steps % args.log_every == 0:
                 # Measure training speed:
                 torch.cuda.synchronize()
-                
-                steps_per_sec = log_steps / (end_time - start_time)
+
                 # Reduce loss history over all processes:
                 avg_loss = torch.tensor(running_loss / log_steps, device=device)
                 avg_loss_pos = torch.tensor(running_loss_pos / log_steps, device=device)
@@ -308,7 +307,7 @@ def main(args):
                 avg_loss = avg_loss.item() / dist.get_world_size()
                 avg_loss_pos = avg_loss_pos.item() / dist.get_world_size()
                 avg_loss_neg = avg_loss_neg.item() / dist.get_world_size()
-                logger.info(f"(step={train_steps:07d}) Train Loss: {avg_loss:.4f} {avg_loss_pos:.4f} {avg_loss_neg:.4f}, Train Steps/Sec: {steps_per_sec:.2f}")
+                logger.info(f"(step={train_steps:07d}) Train Loss: {avg_loss:.4f} {avg_loss_pos:.4f} {avg_loss_neg:.4f}")
                 # Reset monitoring variables:
                 running_loss = 0
                 running_loss_pos = 0
