@@ -12,7 +12,22 @@ from diffusers.models import AutoencoderKL
 from download import find_model
 from models import DiT_models
 import argparse
+import time
 
+
+class_dict = {'airplane': 'n02687172',
+                'automobile': 'n04037443',
+                'bird': 'n01534433',
+                'cat': 'n02123045',
+                'deer': 'n02415577',
+                'dog': 'n02107683',
+                'frog': 'n01644373',
+                'horse': 'n02398521',
+                'ship': 'n02692877',
+                'truck': 'n03345487'}
+
+
+class_dict = {v: k for k, v in class_dict.items()}
 
 def main(args):
     # Setup PyTorch:
@@ -54,8 +69,11 @@ def main(args):
         input_size=latent_size,
         num_classes=args.num_classes
     ).to(device)
-    # Auto-download a pre-trained model or load a custom DiT checkpoint from train.py:
-    ckpt_path = args.ckpt or f"DiT-XL-2-{args.image_size}x{args.image_size}.pt"
+    
+
+    main_ckpt_dir='logs/run-0/000-DiT-XL-2-minimax/checkpoints'
+    ck_names=sorted(os.listdir(main_ckpt_dir),lambda x: int(x.split('.')[0]))
+    ckpt_path = os.path.join(main_ckpt_dir, ck_names[-1])
     state_dict = find_model(ckpt_path)
     model.load_state_dict(state_dict, strict=False)
     model.eval()  # important!
@@ -64,8 +82,10 @@ def main(args):
 
     batch_size = 1
 
+    starting_time = time.time() 
+
     for class_label, sel_class in zip(class_labels, sel_classes):
-        os.makedirs(os.path.join(args.save_dir, sel_class), exist_ok=True)
+        os.makedirs(os.path.join(args.save_dir, class_dict[sel_class]), exist_ok=True)
         for shift in tqdm(range(args.num_samples // batch_size)):
             # Create sampling noise:
             z = torch.randn(batch_size, 4, latent_size, latent_size, device=device)
@@ -86,8 +106,15 @@ def main(args):
 
             # Save and display images:
             for image_index, image in enumerate(samples):
-                save_image(image, os.path.join(args.save_dir, sel_class,
+                save_image(image, os.path.join(args.save_dir, class_dict[sel_class],
                                                f"{image_index + shift * batch_size + args.total_shift}.png"), normalize=True, value_range=(-1, 1))
+                
+
+    ending_time = time.time()
+    running_time=ending_time - starting_time
+    # save the running time
+    with open(f'running_time_sample_ipc_{args.num-samples}.txt', 'w') as f:
+        f.write(f'{running_time:.2f} seconds')
 
 
 if __name__ == "__main__":
@@ -99,8 +126,6 @@ if __name__ == "__main__":
     parser.add_argument("--cfg-scale", type=float, default=4.0)
     parser.add_argument("--num-sampling-steps", type=int, default=50)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--ckpt", type=str, default=None,
-                        help="Optional path to a DiT checkpoint (default: auto-download a pre-trained DiT-XL/2 model).")
     parser.add_argument("--spec", type=str, default='none', help='specific subset for generation')
     parser.add_argument("--save-dir", type=str, default='../logs/test', help='the directory to put the generated images')
     parser.add_argument("--num-samples", type=int, default=100, help='the desired IPC for generation')

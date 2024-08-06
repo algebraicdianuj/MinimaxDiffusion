@@ -26,6 +26,7 @@ from models import DiT_models
 from download import find_model
 from diffusion import create_diffusion
 from diffusers.models import AutoencoderKL
+import time
 
 
 #################################################################################
@@ -230,6 +231,7 @@ def main(args):
     pseudo_memory = defaultdict(list)
 
     logger.info(f"Training for {args.epochs} epochs...")
+    starting_time = time()
     for epoch in range(args.epochs):
         sampler.set_epoch(epoch)
         logger.info(f"Beginning epoch {epoch}...")
@@ -332,6 +334,11 @@ def main(args):
     # do any sampling/FID calculation/etc. with ema (or model) in eval mode ...
 
     logger.info("Done!")
+    ending_time = time.time()
+    running_time = ending_time - starting_time
+    # save the running time
+    with open('running_time_train_dit.txt', 'w') as f:
+        f.write(f'{running_time:.2f} seconds')
     cleanup()
 
 
