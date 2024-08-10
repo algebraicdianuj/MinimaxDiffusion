@@ -111,7 +111,7 @@ def main(args):
     ending_time = time.time()
     running_time=ending_time - starting_time
     # save the running time
-    with open(f'running_time_sample_ipc_{args.num-samples}.txt', 'w') as f:
+    with open(f'running_time_sample_ipc_{args.num_samples}.txt', 'w') as f:
         f.write(f'{running_time:.2f} seconds')
 
 
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--spec", type=str, default='none', help='specific subset for generation')
     parser.add_argument("--save-dir", type=str, default='../logs/test', help='the directory to put the generated images')
-    parser.add_argument("--num-samples", type=int, default=100, help='the desired IPC for generation')
+    parser.add_argument("--num_samples", type=int, default=100, help='the desired IPC for generation')
     parser.add_argument("--total-shift", type=int, default=0, help='index offset for the file name')
     parser.add_argument("--nclass", type=int, default=10, help='the class number for generation')
     parser.add_argument("--phase", type=int, default=0, help='the phase number for generating large datasets')
