@@ -35,7 +35,7 @@ original_class_dict={0: 'airplane',
                      9: 'truck'}
 
 
-class_dict = {'airplane': 'n02687172',
+class_dict = {'airplane': 'n04552348',
                 'automobile': 'n04037443',
                 'bird': 'n01534433',
                 'cat': 'n02123045',
@@ -43,7 +43,7 @@ class_dict = {'airplane': 'n02687172',
                 'dog': 'n02107683',
                 'frog': 'n01644373',
                 'horse': 'n02398521',
-                'ship': 'n02692877',
+                'ship': 'n03095699',
                 'truck': 'n03345487'}
 
 
