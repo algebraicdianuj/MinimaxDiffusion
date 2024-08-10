@@ -23,11 +23,11 @@ acc_dict={}
 for fil in txt_files:
     if 'sample' in fil:
         sample_time=get_time(fil)
-        ipc_val=int(fil.split('_')[1].split('_')[1].split('_')[1].split('_')[1].split('.')[0])
+        ipc_val=int(fil.split('_')[-1].split('_')[-1].split('_')[-1].split('_')[-1].split('.')[0])
         sample_time_dict[ipc_val]=sample_time
 
     elif 'testing' in fil:
-        ipc_val=int(fil.split('_')[1].split('_')[1].split('.')[0])
+        ipc_val=int(fil.split('_')[-1].split('_')[-1].split('.')[0])
         test_acc=get_acc(fil)
         acc_dict[ipc_val]=test_acc
     else:
