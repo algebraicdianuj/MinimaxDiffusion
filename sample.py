@@ -58,10 +58,6 @@ def main(args):
     for sel_class in sel_classes:
         class_labels.append(all_classes.index(sel_class))
 
-    if args.ckpt is None:
-        assert args.model == "DiT-XL/2", "Only DiT-XL/2 models are available for auto-download."
-        assert args.image_size in [256, 512]
-        assert args.num_classes == 1000
 
     # Load model:
     latent_size = args.image_size // 8
