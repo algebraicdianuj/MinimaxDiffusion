@@ -12,6 +12,6 @@ python test.py --dir results_ipc_10
 python sample.py --model DiT-XL/2 --image-size 256 --save-dir results_ipc_50 --spec cifar10 --num_samples 50
 python test.py --dir results_ipc_50
 
-python generate_cv.py
+python generate_csv.py
 
 
