@@ -43,6 +43,8 @@ def main(args):
         file_list = './misc/class_woof.txt'
     elif args.spec == 'nette':
         file_list = './misc/class_nette.txt'
+    elif args.spec == 'cifar10':
+        file_list = './misc/cifar10.txt'
     else:
         file_list = './misc/class100.txt'
     with open(file_list, 'r') as fp:
