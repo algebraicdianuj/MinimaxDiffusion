@@ -102,6 +102,7 @@ for _ in range(30):
 
 
 test_acc=test(testing_net, train_loader, device)
+print("Testing accurcy (%): ",test_acc)
 # save test acc to a file
 with open(f'testingacc_ipc_{ipc}.txt', 'w') as f:
     f.write(f'{test_acc:.2f} percent')
