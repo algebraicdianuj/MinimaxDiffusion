@@ -70,7 +70,7 @@ class MLP(nn.Module):
 batch_size = 256
 num_classes = 10 
 channel = 3
-ipc=int(args.dir.split('_')[1].split('_')[1])
+ipc=int(args.dir.split('_')[-1].split('_')[-1])
 im_size = (32, 32)
 mean = [0.4914, 0.4822, 0.4465]
 std = [0.2023, 0.1994, 0.2010]
