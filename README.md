@@ -1,7 +1,7 @@
 # Efficient Dataset Distillation via Minimax Diffusion (CIFAR-10 Benchmarking)
 
 ```code
-https://github.com/algebraicdianuj/MinimaxDiffusion.git
+git clone https://github.com/algebraicdianuj/MinimaxDiffusion.git
 cd MinimaxDiffusion
 chmod +x initiator.sh
 chmod +x commands.sh
