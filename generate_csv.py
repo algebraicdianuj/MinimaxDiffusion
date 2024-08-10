@@ -40,11 +40,17 @@ sample_time=list(sample_time_dict.values())
 test_acc=[acc_dict[key] for key in IPC]
 
 
+combined = list(zip(IPC, sample_time, test_acc))
+sorted_combined = sorted(combined, key=lambda x: x[0])
+IPC_sorted, sample_time_sorted, test_acc_sorted = zip(*sorted_combined)
+IPC_sorted = list(IPC_sorted)
+sample_time_sorted = list(sample_time_sorted)
+test_acc_sorted = list(test_acc_sorted)
 
 stat_data = {
-    'Running Time': sample_time,
-    'Test Accuracy': test_acc,
-    'IPC': IPC
+    'Running Time': sample_time_sorted,
+    'Test Accuracy': test_acc_sorted,
+    'IPC': IPC_sorted
 }
 
 df = pd.DataFrame(stat_data)
