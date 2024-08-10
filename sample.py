@@ -68,7 +68,7 @@ def main(args):
     
 
     main_ckpt_dir='logs/run-0/000-DiT-XL-2-minimax/checkpoints'
-    ck_names=sorted(os.listdir(main_ckpt_dir),lambda x: int(x.split('.')[0]))
+    ck_names = sorted(os.listdir(main_ckpt_dir), key=lambda x: int(x.split('.')[0]))
     ckpt_path = os.path.join(main_ckpt_dir, ck_names[-1])
     state_dict = find_model(ckpt_path)
     model.load_state_dict(state_dict, strict=False)
