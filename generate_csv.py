@@ -14,7 +14,7 @@ def get_acc(file_path):
     with open(file_path, 'r') as f:
         content = f.read().strip()
         if 'percent' in content:
-            accuracy = float(content.split('percent')[-1].strip())
+            accuracy = float(content.split('percent')[0].strip())
             return accuracy
 
 txt_files=[fil for fil in os.listdir('.') if fil.endswith('.txt')]
