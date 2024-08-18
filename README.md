@@ -1,6 +1,6 @@
 # Efficient Dataset Distillation via Minimax Diffusion (CIFAR-10 and ImageWoof Benchmarking)
 
-# CIFAR-10 (100 samples per class)
+# CIFAR-10 (500 samples per class)
 ```code
 git clone https://github.com/algebraicdianuj/MinimaxDiffusion.git
 cd MinimaxDiffusion
